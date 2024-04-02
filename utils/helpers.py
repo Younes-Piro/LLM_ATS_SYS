@@ -40,12 +40,12 @@ def extract_experience_duration(experiences):
 
     # Iterate through each experience in the provided list
     for exp in experiences:
-        if not any(keyword in exp["Poste"].lower() for keyword in ["internship", "intern", "stage", "pfe", "stagiaire"]):
+        if not any(keyword in exp["position"].lower() for keyword in ["internship", "intern", "stage", "pfe", "stagiaire"]):
             # Use the convert_to_standard_format function for start_date
-            start_date_str = convert_to_standard_format(exp['Duree']['start_date'])
+            start_date_str = convert_to_standard_format(exp['duration']['start_date'])
 
             # Use the end_date from the experience if it contains any string, otherwise use datetime.now()
-            end_date_str = convert_to_standard_format(exp['Duree']['end_date']) if exp['Duree']['end_date'] else None
+            end_date_str = convert_to_standard_format(exp['duration']['end_date']) if exp['duration']['end_date'] else None
             end_date_str = end_date_str or datetime.now().strftime("%Y-%m")
             
             # Create a tuple representing the unique date pair
@@ -76,25 +76,25 @@ def months_difference(start_date_str, end_date_str):
 def all_responsibilies(experiences):
     all_resp = []
     for exp in experiences:
-        if not any(keyword in exp["Poste"].lower() for keyword in ["internship", "intern", "stage", "pfe", "stagiaire"]):
-            if isinstance(exp['Responsabilites/Réalisations'], list):
-                all_resp.extend(exp['Responsabilites/Réalisations'])
+        if not any(keyword in exp["position"].lower() for keyword in ["internship", "intern", "stage", "pfe", "stagiaire"]):
+            if isinstance(exp['responsibilities'], list):
+                all_resp.extend(exp['responsibilities'])
             else:
-                all_resp.extend([exp['Responsabilites/Réalisations']])
+                all_resp.extend([exp['responsibilities']])
     return all_resp   
 
 def format_resume(cv_parsed):
   data = {}
 
   #basic information
-  for basic in cv_parsed['information_basique'].keys():
-    data[f'{basic}'] = cv_parsed['information_basique'][f'{basic}']
+  for basic in cv_parsed['basic_information'].keys():
+    data[f'{basic}'] = cv_parsed['basic_information'][f'{basic}']
 
   # numero mois d'experience
-  data['months_experiences'] = extract_experience_duration(cv_parsed['Experiences_professionnelles'])
+  data['months_experiences'] = extract_experience_duration(cv_parsed['professional_experiences'])
 
   # responsibilites
-  data['responsibilities'] = all_responsibilies(cv_parsed['Experiences_professionnelles'])
+  data['responsibilities'] = all_responsibilies(cv_parsed['professional_experiences'])
 
   #Skills 
   # Check the type of the value under 'skills'

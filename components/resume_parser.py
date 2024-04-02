@@ -7,7 +7,7 @@ def resume_parser(cv_content):
         You are a CV analysis assistant and an extraction expert.
         Please analyze the following CV and extract the relevant information:
 
-        {cv_content}
+        {context}
 
         The extracted information should be in JSON format with the following structure:
 
@@ -35,7 +35,7 @@ def resume_parser(cv_content):
             }}
         }}
 
-    NOTE : Please ensure all dates are in the format: mm-YYYY.
+    IMPORTANT : Please ensure all dates are in the format: mm-YYYY.
     """
 
     prompt_final = prompt_template.format(context=cv_content)
