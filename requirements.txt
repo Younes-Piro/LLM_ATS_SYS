@@ -6,3 +6,4 @@ pdfminer
 scikit-learn
 sentence_transformers
 google-generativeai
+python-dateutil
