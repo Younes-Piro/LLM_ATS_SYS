@@ -1,0 +1,8 @@
+langchain
+openai
+python-dotenv
+pypdf
+pdfminer
+scikit-learn
+sentence_transformers
+google-generativeai
