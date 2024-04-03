@@ -7,3 +7,4 @@ scikit-learn
 sentence_transformers
 google-generativeai
 python-dateutil
+langchain_openai
