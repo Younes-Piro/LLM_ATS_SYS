@@ -38,10 +38,10 @@ def parse_resume(input):
         Langages_de_programmation_technologies: List[str] = Field(description="décrire la liste des langages de programmation qui apparaissent dans les CV des candidats")
         
 
-    model = ChatOpenAI(model="gpt-3.5-turbo", temperature=0).bind_tools([Candidat])
+    model = ChatOpenAI(model="gpt-4o", temperature=0).bind_tools([Candidat])
 
     prompt = ChatPromptTemplate.from_messages(
-        [("system", "Vous êtes un assistant d'analyse de CV et un expert en extraction."), ("user", f"Analysez cette description de poste et extrayez les informations pertinentes : {input}")]
+        [("system", "Vous êtes un assistant d'analyse de CV et un expert en extraction."), ("user", f"Analysez cette description de poste et extrayez les informations pertinentes : {input}. IMPORTANT: le resultat doit suivre une format JSON valide")]
     )
 
     parser = JsonOutputKeyToolsParser(key_name="Candidat")
