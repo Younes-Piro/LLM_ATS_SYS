@@ -14,38 +14,37 @@ os.environ['OPENAI_API_KEY'] = os.getenv('OPENAI_API_KEY')
 def parse_resume(input):
 
     class Experience(BaseModel):
-        """Experience model """
+        """Modèle d'expérience"""
 
-        Company_name: str = Field(description="describe company name")
-        Position: str = Field(description="describe position")
-        start_date: datetime = Field(description="describe start date of experience")
-        end_date: datetime = Field(description="describe end date of experience")
-        responsibilities: List[str] = Field(description="describe list of responsibilities during the experience")
+        Nom_de_la_societe: str = Field(description="décrire le nom de la société")
+        Poste: str = Field(description="décrire le poste")
+        date_de_debut: datetime = Field(description="décrire la date de début de l'expérience")
+        date_de_fin: datetime = Field(description="décrire la date de fin de l'expérience")
+        responsabilites: List[str] = Field(description="décrire la liste des responsabilités pendant l'expérience")
 
 
-    class Candidate(BaseModel):
-        """Candidate model """
+    class Candidat(BaseModel):
+        """Modèle de candidat"""
 
-        Fullname: str = Field(description="describe candidate full name")
-        Email: str = Field(description="describe candidate email address")
-        Phone_number: str = Field(description="describe candidate phones number")
-        Location: str = Field(description="describe candidate location")
-        Linkedin_url: str = Field(description="describe candidate linkedin url")
-        University_name: str = Field(description="describe candidate university name")
-        Education_level: str = Field(description="describe candidate education level")
-        Professional_title: str = Field(description="describe candidate professional title")
-        Experiences: List[Experience] = Field(description="describe list of experiences")
+        Nom_complet: str = Field(description="décrire le nom complet du candidat")
+        Email: str = Field(description="décrire l'adresse e-mail du candidat")
+        Numero_de_telephone: str = Field(description="décrire le numéro de téléphone du candidat")
+        Localisation: str = Field(description="décrire la localisation du candidat")
+        URL_Linkedin: str = Field(description="décrire l'URL Linkedin du candidat")
+        Nom_de_l_universite: str = Field(description="décrire le nom de l'université du candidat")
+        Niveau_d_etudes: str = Field(description="décrire le niveau d'études du candidat")
+        Titre_professionnel: str = Field(description="décrire le titre professionnel du candidat")
+        Experiences: List[Experience] = Field(description="Une liste de descriptions structurées de toutes les expériences professionnelles du candidat, à l'exclusion de son parcours académique et éducatif")
+        Langages_de_programmation_technologies: List[str] = Field(description="décrire la liste des langages de programmation qui apparaissent dans les CV des candidats")
         
 
-    model = ChatOpenAI(model="gpt-3.5-turbo", temperature=0).bind_tools([Candidate])
-
-    print(model.kwargs["tools"])
+    model = ChatOpenAI(model="gpt-3.5-turbo", temperature=0).bind_tools([Candidat])
 
     prompt = ChatPromptTemplate.from_messages(
-        [("system", "You are a CV analysis assistant and an extraction expert."), ("user", f"Analyse this post description suivante and extract the pertinant informations: {input}")]
+        [("system", "Vous êtes un assistant d'analyse de CV et un expert en extraction."), ("user", f"Analysez cette description de poste et extrayez les informations pertinentes : {input}")]
     )
 
-    parser = JsonOutputKeyToolsParser(key_name="Candidate", first_tool_only=True)
+    parser = JsonOutputKeyToolsParser(key_name="Candidat")
 
     chain = prompt | model | parser
 
