@@ -108,6 +108,11 @@ def all_responsibilies(experiences):
                 all_resp.extend([exp['responsabilites']])
     return all_resp   
 
+def last_entreprise(experiences):
+    experience = experiences[0]
+    if not any(keyword in experience["Poste"].lower() for keyword in ["internship", "intern", "stage", "pfe", "stagiaire"]):
+        return experience['Nom_de_la_societe']
+
 def format_resume(cv_parsed):
   data = {}
 
@@ -118,6 +123,8 @@ def format_resume(cv_parsed):
   for basic in basic_infos:
     data[f'{basic}'] = cv_parsed[f'{basic}']
 
+
+  data['last_entreprise'] = last_entreprise(cv_parsed['Experiences'])
   # numero mois d'experience
   data['months_experiences'] = extract_experience_duration(cv_parsed['Experiences'])
 
