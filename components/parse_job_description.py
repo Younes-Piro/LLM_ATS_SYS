@@ -1,8 +1,18 @@
-import openai
+from openai import OpenAI
+from dotenv import load_dotenv
+import os
 
-def parse_job(description_de_poste, openai_api_key, max_tokens=1000):
+load_dotenv()
 
-    openai.api_key = openai_api_key
+os.environ['OPENAI_API_KEY'] = os.getenv('OPENAI_API_KEY')
+
+
+def parse_job(description_de_poste, max_tokens=1000):
+
+    client = OpenAI(
+        # This is the default and can be omitted
+        api_key=os.environ.get("OPENAI_API_KEY"),
+    )
 
     # Définissez la conversation avec la description de poste comme variable
     conversation = [
@@ -13,14 +23,15 @@ def parse_job(description_de_poste, openai_api_key, max_tokens=1000):
     ]
 
     # Effectuez l'appel à l'API
-    response = openai.ChatCompletion.create(
+    chat_completion = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=conversation,
         max_tokens=max_tokens
     )
 
     # Extrayez la réponse de l'assistant
-    assistant_reply = response['choices'][0]['message']['content']
+    assistant_reply=chat_completion.choices[0].message.content
+
 
     #return the result
     return assistant_reply
