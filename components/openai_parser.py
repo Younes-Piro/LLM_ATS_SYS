@@ -11,7 +11,7 @@ load_dotenv()
 
 os.environ['OPENAI_API_KEY'] = os.getenv('OPENAI_API_KEY')
 
-def parse_resume(input):
+def parse_resumer(input):
 
     class Experience(BaseModel):
         """Modèle d'expérience"""
