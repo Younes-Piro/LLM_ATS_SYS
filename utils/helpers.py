@@ -154,12 +154,12 @@ def experience_needed(experience_str):
 def format_job(job_parsed):
     data = {}
 
-    data['post'] = job_parsed['information_post']['intitule_poste']
+    data['post'] = job_parsed['intitule_poste']
 
-    data['months_experiences']   = int(experience_needed(job_parsed['information_post']['année_experience'])) * 12
+    data['months_experiences']   = int(experience_needed(job_parsed['année_experience'])) * 12
 
-    for skill in job_parsed['Skills'].keys():
-        data[f'{skill}'] = job_parsed['Skills'][f'{skill}']
+    for skill in job_parsed['Skills'][0].keys():
+        data[f'{skill}'] = job_parsed['Skills'][0][f'{skill}']
     return data
 
 def clean_json_string(raw_json_string):
