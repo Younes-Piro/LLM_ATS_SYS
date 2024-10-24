@@ -40,4 +40,4 @@ print(f"Job description : {job_parsed}")
 print('--------------------------------' * 30)
 
 print('begin matching : \n'  )
-print(MP.matching(resume_parsed, job_parsed))
+print(MP.matching_profiles(resume_parsed, job_parsed))
