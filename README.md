@@ -29,13 +29,18 @@ Leverage Large Language Models (LLMs) to build an ATS that:
 *For candidates:* it ensures fairer evaluation by recognizing skills and experiences expressed in diverse formats and languages.<br>
 *For HR managers:* it provides actionable insights into talent pipelines and hiring trends.
 
-## Architecture:
+## Architecture & Frameworks :
 
 To address these challenges and achieve the outlined goals,
-we propose a modular architecture for an LLM-powered Applicant Tracking System.
-This design ensures scalability, flexibility, and compliance while leveraging advanced natural language processing 
+I propose a modular architecture that ensures scalability, flexibility, and compliance, while leveraging advanced natural language processing
 to deliver accurate, fair, and explainable candidate recommendations.
-The following high-level architecture outlines the key components and their interactions.
+
+The following frameworks have been used to achieve this goal:
+
+
+
+
+
 
 
 
